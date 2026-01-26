@@ -1,13 +1,29 @@
+import { useSelector } from "react-redux";
+import CreateUser from "../features/user/CreateUser";
+import { useNavigate } from "react-router-dom";
+import Button from "./Button";
+
 function Home() {
+  const userName = useSelector((state) => state.user.userName);
+  const navigate = useNavigate();
   return (
-    <div>
-      <h1>
+    <div className="my-10 px-4 text-center sm:my-16">
+      <h1 className="mb-8  text-xl font-semibold md:text-3xl">
         The best pizza.
         <br />
-        Straight out of the oven, straight to you.
+        <span className="text-yellow-500">
+          Straight out of the oven, straight to you.
+        </span>
       </h1>
+
+      {userName === "" ? (
+        <CreateUser />
+      ) : (
+        <Button to="/menu" type="primary">
+          Start ordering {userName}!
+        </Button>
+      )}
     </div>
   );
 }
-
 export default Home;
